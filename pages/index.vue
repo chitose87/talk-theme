@@ -1,64 +1,75 @@
-<template lang="pug">
-  div
-    GlobalHeader
-    p test
-    .container
-      div(v-for="item in fbData")
-        h4(v-html="item.body")
+<template>
+  <div class="container">
+    <div>
+      <Logo />
+      <h1 class="title">
+        tt
+      </h1>
+      <div class="links">
+        <a
+          href="https://nuxtjs.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--green"
+        >
+          Documentation
+        </a>
+        <a
+          href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+        >
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from "~/node_modules/nuxt-property-decorator";
-  import * as firebase from "~/node_modules/firebase";
-  import GlobalHeader from "~/components/GlobalHeader.vue";
+import Vue from 'vue'
 
-  @Component({
-    components: {GlobalHeader}
-  })
-  export default class Index extends Vue {
-    fbData: any = {};
-
-    mounted() {
-      let process = {
-        env: {
-          apiKey: "AIzaSyCMQZLhoMtNacYuDbVswZvemu6ZBhbJu9I",
-          authDomain: "talk-theme.firebaseapp.com",
-          databaseURL: "https://talk-theme.firebaseio.com",
-          projectId: "talk-theme",
-          storageBucket: "talk-theme.appspot.com",
-          messagingSenderId: "442693737156",
-          appId: "1:762563187881:web:520aae9c9bccb8916a05b8",
-          // breakPoint: "768",
-          // gutter: "18"
-        }
-      };
-      firebase.initializeApp({
-        apiKey: process.env.apiKey,
-        authDomain: process.env.authDomain,
-        databaseURL: process.env.databaseURL,
-        projectId: process.env.projectId,
-        storageBucket: process.env.storageBucket,
-        messagingSenderId: process.env.messagingSenderId,
-      });
-
-      //routes index
-      firebase.auth().onAuthStateChanged((user) => {
-        firebase.firestore().collection("topic")
-          .onSnapshot((query: any) => {
-            query.forEach((snap: any) => {
-              let v = snap.data();
-              console.log(snap.id, v);
-              this.$set(this.fbData, snap.id, v);
-            });
-          });
-
-        // firebase.firestore().collection("outlines")
-        //   .onSnapshot(Singleton.updateOutlines);
-      });
-    }
-  }
+export default Vue.extend({})
 </script>
 
-<style lang="scss">
+<style>
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
+.title {
+  font-family:
+    'Quicksand',
+    'Source Sans Pro',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
+}
 </style>

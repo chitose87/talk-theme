@@ -5,7 +5,7 @@
     }
   },
   "hosting": {
-    "public": ".nuxt/dist",
+    "public": "static",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -14,7 +14,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "ssr"
+        "function": "ssr"
       }
     ]
   }
